@@ -67,14 +67,17 @@ public class PlayerController : MonoBehaviour
         Vector3 position  = transform.position;
         position.x +=  horizontal *speed * Time.deltaTime;
         transform.position = position;
+
+
     }
 
-    void Jump(){
-        //Move Vertically
-        if (canJump)
+        void Jump(){
+        // Move Vertically
+        if(canJump)
         {
             rgbd2D.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
         }
+       
     }
 
     private void checkSurroundings(){
