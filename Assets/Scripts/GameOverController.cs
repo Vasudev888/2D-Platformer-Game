@@ -10,7 +10,9 @@ public class GameOverController : MonoBehaviour
     private void Awake() {
         buttonRestart.onClick.AddListener(ReloadLevel);
     }
-   public void PlayerDied(){
+   public void PlayerDied()
+   {
+       SoundManager.Instance.PlayMusic(Sounds.PlayerDeath);
        gameObject.SetActive(true);
    }
 
