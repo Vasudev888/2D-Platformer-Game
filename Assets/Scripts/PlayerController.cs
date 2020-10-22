@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private bool canJump;
     public bool isGrounded;
 
-//    public float jumpSpeed  = 10f;
+//  public float jumpSpeed  = 10f;
     public Transform groundCheck;
     public float groundCheckRadius;
     public LayerMask groundLayer;
@@ -29,8 +29,6 @@ public class PlayerController : MonoBehaviour
         gameOverController.PlayerDied();
         this.enabled = false;
     }
-
-   
 
     private void Awake() {
       Debug.Log("Player Controller awake");
@@ -59,22 +57,25 @@ public class PlayerController : MonoBehaviour
         MoveCharacter(horizontal, vertical);
         PlayMovementAnimation(horizontal, vertical);
         checkSurroundings();
-        can_Jump();
+        // can_Jump();
     }
 
-    private void MoveCharacter(float horizontal, float vertical){
+    private void MoveCharacter(float horizontal, float vertical)
+    {
        //Move Horizontally
         Vector3 position  = transform.position;
         position.x +=  horizontal *speed * Time.deltaTime;
         transform.position = position;
     }
 
-    void Jump(){
-        //Move Vertically
-        if (canJump)
+        void Jump(){
+        // Move Vertically
+        
         {
-            rgbd2D.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
+            rgbd2D.AddForce(transform.up*jump, ForceMode2D.Impulse);
+            Debug.Log("jump started");
         }
+       
     }
 
     private void checkSurroundings(){
@@ -106,7 +107,8 @@ public class PlayerController : MonoBehaviour
         transform.localScale = scale;
 
         // //Jump
-        if(vertical > 0){
+        if(vertical  > 0 && isGrounded){
+            Jump();
             animator.SetBool("Jump", true);
         }
         else{
@@ -126,9 +128,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos() {
-        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
-    }
 }
 
      
